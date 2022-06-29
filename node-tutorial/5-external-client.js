@@ -1,7 +1,9 @@
 const axios = require('axios');
 
 axios
-  .get('https://jsonplaceholder.typicode.com/todos/1')
+  .get('https://jsonplaceholder.typicode.com/todos/1', {
+    timeout: 1000
+  })
   .then(res => {
     console.log(`statusCode: ${res.status}`);
     console.log(res.data);
