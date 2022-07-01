@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const logger = require('./util/logger');
 
-
+// Application level middleware
 //  req => middleware => res
 app.use([logger])
 

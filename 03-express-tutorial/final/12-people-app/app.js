@@ -17,3 +17,24 @@ app.use('/login', auth)
 app.listen(5000, () => {
   console.log('Server is listening on port 5000....')
 })
+
+
+
+/**
+ * Generic Folder Structure
+ * 
+ * index.js / app.js - Root File - All global modules are injected
+ * route - To configure the route
+ *  user.js
+ *  product.js
+ * controller - Controller operation based on (req, res)
+ *  user-controller.js
+ *  product-controller.js
+ * model - Class level Entities
+ * service - DB Operation 
+ *  user-service.js
+ *  user-service.js
+ * middleware - custom middleware
+ * util - Common application level utility
+ * 
+ */

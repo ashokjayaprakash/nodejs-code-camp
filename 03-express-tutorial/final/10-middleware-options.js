@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
+const fs = require('fs')
+const path = require('path')
 //  req => middleware => res
 
 /**
@@ -9,8 +11,13 @@ const morgan = require('morgan')
  */
 
 
-// Replacing custom logger with morgan library
+// Replacing custom logger with morgan library - 3rd Party
 app.use(morgan('tiny'))
+
+// File logging
+app.use(morgan('common', {
+  stream: fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+}))
 
 app.get('/', (req, res) => {
   res.send('Home')
