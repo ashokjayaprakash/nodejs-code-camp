@@ -4,7 +4,7 @@ console.log(process.env);
 const express = require('express')
 const app = express()
 const authenticateToken = require('./middleware/auth');
-
+const { body } = require('express-validator');
 const people = require('./routes/people')
 const auth = require('./routes/auth')
 
@@ -16,8 +16,14 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 // app.use([authenticateToken])
 
-app.use('/api/people', authenticateToken, people)
-app.use('/login', auth)
+app.use('/api/people', people)
+
+// https://express-validator.github.io/docs/
+app.use('/login',  // username must be an email
+          body('username').isEmail(),
+          // password must be at least 5 chars long
+          body('password').isLength({ min: 5 }),
+          auth)
 
 app.listen(5000, () => {
   console.log('Server is listening on port 5000....')

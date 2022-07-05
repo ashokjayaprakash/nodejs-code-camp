@@ -1,31 +1,26 @@
 const express = require('express')
-const { people } = require('../../../data')
 const router = express.Router()
+const { checkSchema } = require('express-validator');
+const { createPersonSchema, getPersonSchema } = require('../schema/people')
 
 const {
   getPeople,
   createPerson,
   createPersonPostman,
+  getPersonById,
   updatePerson,
   deletePerson,
 } = require('../controller/people')
 
-// router.get('/', getPeople)
-// router.post('/', createPerson)
-// router.post('/postman', createPersonPostman)
-// router.put('/:id', updatePerson)
-// router.put('/:id/revew', updatePerson)
-
-// router.delete('/:id', deletePerson)
-
 router.route('/')
     .get(getPeople)
-    .post(createPerson)
+    .post(checkSchema(createPersonSchema) , createPerson)
 
 router.route('/postman')
     .post(createPersonPostman)
 
 router.route('/:id')
+    .get(checkSchema(getPersonSchema), getPersonById)
     .put(updatePerson)
     .delete(deletePerson)
 

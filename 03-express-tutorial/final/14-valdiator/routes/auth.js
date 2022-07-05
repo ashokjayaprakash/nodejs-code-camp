@@ -1,9 +1,17 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
+const { validationResult } = require('express-validator');
 
 router.post('/', (req, res) => {
   const { username, password } = req.body
+
+   // Finds the validation errors in this request and wraps them in an object with handy functions
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+     return res.status(400).json({ errors: errors.array() });
+   }
+
   if (username && password) {  
     const id = randomIntFromInterval(1,4)
     let user = {
